@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="theme-color" content="{{ settings.color_primary }}" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="icon" href="{{ 'favicon.png' | asset_url }}" />
+
+    {% include "title" %}
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}" />
+    {% endif %}
+
+    {% include "open-graph" %}
+    {% include "twitter-card" %}
+
+    {% include "canonical-url" %}
+    <link rel="canonical" href="{{ canonical }}" />
+
+    {{ "//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" | stylesheet_tag }}
+    {{ "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" | stylesheet_tag }}
+    {{ "theme.scss.css" | asset_url | stylesheet_tag }}
+
+    {{ content_for_header }}
+
+    {% include "hide-admin-bar" %}
+  </head>
+
+  <body data-theme="{{ theme_data_json }}">
+    <header role="banner">
+      <div class="container">
+        <div class="grid--bar padding-top--up-1">
+          <div class="grid-item large--one-half">
+            {% include "logo" %}
+          </div>
+          <div class="grid-item large--one-half text-center large--text-right">
+            {% include "utility-menu" %}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav role="navigation">
+      <div class="container">
+        <div class="grid--bar padding-top-bottom--up-1">
+          <div class="grid-item large--two-thirds">
+            {% include "main-menu" %}
+          </div>
+          <div class="grid-item large--one-third">
+            {% include "search-form", context: "main-menu" %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container margin-bottom--up-2" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% include "footer" %}
+
+    {{ "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" | script_tag }}
+    {{ "//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js" | script_tag }}
+    {{ "//cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.ui.min.js" | script_tag }}
+
+    {{ "jquery.shopify-unveil.js" | asset_url | script_tag }}
+    {{ "theme.js" | asset_url | script_tag }}
+
+    {% if template contains "collection" %}
+      {{ "collection.js" | asset_url | script_tag }}
+    {% endif %}
+
+    {% if template contains "product" %}
+      {% include 'product-scripts' %}
+    {% endif %}
+
+    {% include "upgrade-browser-notice" %}
+  </body>
+</html>

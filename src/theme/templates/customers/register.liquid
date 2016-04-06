@@ -1,0 +1,26 @@
+{% form "create_customer" %}
+
+  <h1>Create Account</h1>
+
+  {% if form.errors %}
+    <div class="text-links">
+      {{ form.errors | default_errors }}
+    </div>
+  {% endif %}
+
+  <label for="first_name">First Name</label>
+  <input type="text" value="" name="customer[first_name]" id="first_name" placeholder="First Name" autocapitalize="words" autofocus />
+
+  <label for="last_name">Last Name</label>
+  <input type="text" value="" name="customer[last_name]" id="last_name" placeholder="Last Name" autocapitalize="words" />
+
+  <label for="email">Email Address</label>
+  <input type="email" value="" name="customer[email]" id="email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+
+  <label for="password">Password</label>
+  <input type="password" value="" name="customer[password]" id="create_password" placeholder="Password" required />
+
+  <button type="submit">Create</button>
+
+  <p><a href="{{ shop.url }}">Return to Store</a></p>
+{% endform %}

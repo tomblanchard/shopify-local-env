@@ -1,0 +1,14 @@
+{% assign each_line = filter-html-list-items | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = false %}
+
+{% for html in each_line %}
+  {% if html contains "</li>" %}
+    {% assign list_item = html | strip_html | strip %}
+    {% assign output = output | append: "  " | append: list_item %}
+  {% endif %}
+{% endfor %}
+
+{% if output %}
+  {% assign output = output | replace: "false","" | strip | split: "  " %}
+{% endif %}

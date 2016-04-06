@@ -1,0 +1,21 @@
+{% assign html_parts = filter-html-image-urls | default: html | split: '"' %}
+
+{% assign output = "" %}
+
+{% for part in html_parts %}
+  {% if part contains "cdn.shopify.com" %}
+    {% assign url = part | strip %}
+    {% assign image_sizes = "pico icon thumb small compact medium large grande 1024x1024 2048x2048" | split: " " %}
+    {% assign image_types = "jpg png gif" | split: " " %}
+    {% for size in image_sizes %}
+      {% for type in image_types %}
+        {% assign size_match = "_SIZE.TYPE" | replace: "SIZE", size | replace: "TYPE", type %}
+        {% assign image_extension = "." | append: type %}
+        {% assign url = url | replace: size_match, image_extension %}
+      {% endfor %}
+    {% endfor %}
+    {% assign output = output | append: "  " | append: url %}
+  {% endif %}
+{% endfor %}
+
+{% assign output = output | strip | split: "  " %}

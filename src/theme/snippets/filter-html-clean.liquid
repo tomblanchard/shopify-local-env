@@ -1,0 +1,22 @@
+{% assign each_line = filter-html-clean | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = "" %}
+
+{% for html in each_line %}
+  {% assign html_new = html %}
+
+  {% assign plain_text = html %}
+  {% unless html contains "<img" or html contains "<ul" or html contains "</ul" or html contains "<ol" or html contains "</ol" or html contains "</iframe" %}
+    {% assign plain_text = html | strip_html | strip %}
+  {% endunless %}
+
+  {% if html contains "<h5" %}
+    {% assign html_new = "<h5>" | append: plain_text | append: "</h5>" %}
+  {% endif %}
+
+  {% unless plain_text == blank %}
+    {% capture html_with_clean_line_break %}{{ html_new }}
+{% endcapture %}
+    {% assign output = output | append: html_with_clean_line_break %}
+  {% endunless %}
+{% endfor %}

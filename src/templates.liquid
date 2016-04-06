@@ -1,0 +1,58 @@
+{% layout none %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>
+    Templates
+  </title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    html {
+      padding: 5%;
+    }
+
+    body {
+      max-width: 400px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    h1 {
+      margin-bottom: 0.5em;
+    }
+
+    ul {
+      list-style-position: inside;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>
+    Templates:
+  </h1>
+
+  <ul>
+    {% for _page in _pages %}
+      {% if _page contains '.liquid' %}
+        <li>
+          <a href="{{ _page | split: '/' | last | replace: '.liquid', '.html' }}">
+            {{ _page | split: '/' | last }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+</body>
+</html>

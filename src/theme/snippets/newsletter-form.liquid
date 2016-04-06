@@ -1,0 +1,10 @@
+<form action="{{ settings.newsletter_form_action }}" method="post" target="_blank">
+  <div class="grid grid-gutter--none">
+    <div class="grid-item large--three-quarters">
+      <input class="list-inline-item one-whole" type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="your-email@shopify.com" name="EMAIL" id="mail" aria-label="Email Address" autocorrect="off" autocapitalize="off" />
+    </div>
+    <div class="grid-item large--one-quarter">
+      <input class="list-inline-item one-whole" type="submit" value="Subscribe" name="subscribe" id="subscribe" />
+    </div>
+  </div>
+</form>

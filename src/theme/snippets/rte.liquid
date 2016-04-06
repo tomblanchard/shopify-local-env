@@ -1,0 +1,92 @@
+{% if template contains "index" %}
+  {% assign html = pages.frontpage.content %}
+{% elsif template contains "collection" %}
+  {% assign html = collection.description %}
+{% elsif template contains "product" %}
+  {% assign html = product.description %}
+{% elsif template contains "page" %}
+  {% assign html = page.content %}
+{% elsif template contains "article" %}
+  {% assign html = article.content %}
+{% endif %}
+
+{% assign html = set_rte | default: rte | default: html %}
+
+{% include "filter-html-clean" %}
+{% assign html = output %}
+
+{% include "filter-html-image-urls" %}
+{% assign rte_image_urls = output %}
+
+{% include "filter-html-image-alts" %}
+{% assign rte_image_alts = output %}
+
+{% include "filter-html-image-hrefs" %}
+{% assign rte_image_hrefs = output %}
+
+{% include "filter-html-text" %}
+{% assign rte_text = output %}
+
+{% assign each_fragment = html | split: "<h5" %}
+
+{% assign rte_content_before_fragments = each_fragment.first | default: false %}
+
+{% assign rte_fragment_titles = false %}
+{% for html in each_fragment %}
+  {% unless forloop.first %}
+    {% assign rte_fragment_title = html | split: "</h5>" | first | remove: ">" | strip %}
+    {% assign rte_fragment_titles = rte_fragment_titles | append: "  " | append: rte_fragment_title %}
+  {% endunless %}
+{% endfor %}
+{% assign rte_fragment_titles = rte_fragment_titles | replace: "false","" | strip | split: "  " %}
+
+{% if get %}
+  {% assign get_fragment_title = get %}
+  {% assign get_fragment_title_handle = get_fragment_title | handle %}
+
+  {% assign rte_fragment_title = false %}
+  {% assign rte_fragment_body = false %}
+  {% assign rte_fragment_body_prose = false %}
+  {% assign rte_fragment_body_list_items = false %}
+
+  {% for html in each_fragment %}
+    {% unless forloop.first %}
+      {% assign fragment_title = html | split: "</h5>" | first | remove: ">" | strip %}
+      {% assign fragment_body = html | split: "</h5>" | last %}
+      {% assign fragment_title_handle = fragment_title | handle %}
+
+      {% if fragment_title_handle == get_fragment_title_handle %}
+        {% assign rte_fragment_title = fragment_title %}
+        {% assign rte_fragment_body = fragment_body %}
+
+        {% include "filter-html-image-urls" with fragment_body %}
+        {% assign rte_fragment_image_urls = output %}
+
+        {% include "filter-html-image-alts" with fragment_body %}
+        {% assign rte_fragment_image_alts = output %}
+
+        {% include "filter-html-image-hrefs" with fragment_body %}
+        {% assign rte_fragment_image_hrefs = output %}
+
+        {% include "filter-html-text" with fragment_body %}
+        {% assign rte_fragment_text = output %}
+
+        {% include "filter-html-list-items" with fragment_body %}
+        {% assign rte_fragment_body_list_items = output %}
+
+        {% include "filter-html-prose" with fragment_body %}
+        {% assign rte_fragment_body_prose = output %}
+
+        {% include "filter-html-title" with fragment_body %}
+        {% assign rte_fragment_body_title = output %}
+
+        {% include "filter-html-description" with fragment_body %}
+        {% assign rte_fragment_body_description = output %}
+
+        {% break %}
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+{% endif %}
+
+{% assign set_rte = false %}

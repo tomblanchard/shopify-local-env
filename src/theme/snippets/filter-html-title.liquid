@@ -1,0 +1,32 @@
+{% assign each_line = filter-html-title | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = "" %}
+
+{% for html in each_line %}
+  {% if html contains "</h1>" or html contains "</h2>" or html contains "</h3>" or html contains "</h4>" or html contains "</h6>" %}
+
+    {% comment %}
+      Skip titles with images: <h1><img /></h1>
+    {% endcomment %}
+    {% unless html contains "<img" %}
+
+      {% comment %}
+        Strip HTML while preserving line breaks
+      {% endcomment %}
+      {% assign html_parts = html | split: "<br>" %}
+      {% assign text_with_line_breaks = "" %}
+
+      {% for html_part in html_parts %}
+        {% assign text = html_part | strip_html %}
+        {% assign text_with_line_breaks = text_with_line_breaks | append: "  " | append: text %}
+      {% endfor %}
+
+      {% assign text_with_line_breaks = text_with_line_breaks | strip | split: "  " | join: "<br />" %}
+
+      {% capture html_with_clean_line_break %}{{ text_with_line_breaks }}
+  {% endcapture %}
+      {% assign output = output | append: html_with_clean_line_break %}
+      {% break %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}

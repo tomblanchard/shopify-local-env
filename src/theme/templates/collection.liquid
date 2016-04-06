@@ -1,0 +1,42 @@
+{% paginate collection.products by 12 %}
+
+  {% include 'breadcrumb' %}
+
+  <header class="grid--bar margin-bottom--up-2">
+    <div class="grid-item large--one-half">
+      <h1 class="font-size--up-2 margin--none">{{ collection.title }}</h1>
+    </div>
+    <div class="grid-item large--one-half">
+      <div class="float-right">
+        {% include 'collection-sorting' %}
+      </div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="grid-item large--one-quarter">
+      {% include 'collection-sidebar' %}
+    </div>
+
+    <div class="grid-item large--three-quarters">
+      <div class="grid--uniform">
+        {% for product in collection.products %}
+          {% include 'product-thumbnail' %}
+        {% else %}
+          <div class="grid-item one-whole">
+            <div class="padding--up-6 text-center">
+              <h2>There are no products in this collection.</h2>
+              <p>View all products <a href="/collections/all">here</a>.</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <div class="text-center">
+          {% include 'pagination-custom' %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endpaginate %}

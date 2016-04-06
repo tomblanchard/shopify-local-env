@@ -1,0 +1,23 @@
+{% comment %}
+  Notes:
+
+    Images with links must be on their own line for the href array to be
+    synced with the urls and alts arrays.
+{% endcomment %}
+
+{% assign each_line = filter-html-image-hrefs | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = "" %}
+
+{% for html in each_line %}
+  {% if html contains "<img" %}
+    {% if html contains 'href="' %}
+      {% assign href = html | split: 'href="' | last | split: '"' | first %}
+    {% else %}
+      {% assign href = "null" %}
+    {% endif %}
+    {% assign output = output | append: "  " | append: href %}
+  {% endif %}
+{% endfor %}
+
+{% assign output = output | strip | split: "  " %}

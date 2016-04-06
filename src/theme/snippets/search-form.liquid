@@ -1,0 +1,16 @@
+<form action="/search" method="get" class="search-form" role="search">
+
+  {% comment %}
+    <input type="hidden" name="type" value="product" />
+  {% endcomment %}
+
+  <div class="grid--no-gutter">
+    <div class="grid-item large--two-thirds">
+      <input class="list-inline-item margin--none one-whole" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ settings.search_form_placeholder }}" aria-label="Search our store" />
+    </div>
+
+    <div class="grid-item large--one-third">
+      <input class="list-inline-item button margin--none one-whole" type="submit" value="Search" />
+    </div>
+  </div>
+</form>

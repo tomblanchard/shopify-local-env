@@ -1,0 +1,32 @@
+{% comment %}
+  DESCRIPTION
+
+    Load CSS asychronously.
+
+    Adds a global `load_css(url)` function.
+
+  USAGE
+
+    Use the `with` keyword to pass in the CSS URL.
+
+    {% include "css-async" with "//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" %}
+    {% include "css-async" with "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" %}
+    ...
+
+{% endcomment %}
+
+<script>
+  {% unless css_async_included %}
+    function load_css(url) {
+      var link = document.createElement("link");
+      link.type = "text/css";
+      link.rel = "stylesheet";
+      link.href = url;
+      document.head.appendChild(link);
+    }
+  {% endunless %}
+
+  load_css("{{ css-async }}");
+</script>
+
+{% assign css_async_included = true %}

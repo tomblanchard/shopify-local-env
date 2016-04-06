@@ -1,0 +1,27 @@
+{% comment %}
+  DESCRIPTION
+
+    Map an array of strings to an array of handles.
+
+    For anything that does actually have a handle attribute, use map
+    instead, ex: `{{ linklists.footer.links | map: "handle" }}`.
+
+    The inline variable syntax is used because the "with" keyword
+    doesn't work with common built-in arrays such as collection.tags
+    and current_tags.
+
+  USAGE
+
+    {% include "filter-map-to-handle", input: collection.tags %}
+    {% assign collection_tag_handles = output %}
+
+{% endcomment %}
+
+{% assign output = "" %}
+
+{% for item in input %}
+  {% assign item_handle = item | handle %}
+  {% assign output = output | append: "  " | append: item_handle %}
+{% endfor %}
+
+{% assign output = output | strip | split: "  " %}

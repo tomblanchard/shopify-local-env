@@ -1,0 +1,61 @@
+module.exports = {
+  "balance": 100,
+  "code": 12345,
+  "currency": "USD",
+  "customer": {
+    "accepts_marketing": false,
+    "addresses": [
+      {
+        "first_name": "Tom",
+        "last_name": "Blanchard",
+        "address1": "38 Roxby Road",
+        "address2": "Winterton",
+        "street": "38 Roxby Road, Winterton",
+        "company": "Tom Blanchard Co",
+        "city": "Scunthorpe",
+        "province": "North Lincolnshire",
+        "province_code": "NL",
+        "zip": "12345",
+        "country": "United Kingdom",
+        "country_code": "UK",
+        "phone": "1234567890",
+        "id": 1
+      }
+    ],
+    "addresses_count": 1,
+    "default_address": {
+      "first_name": "Tom",
+      "last_name": "Blanchard",
+      "address1": "38 Roxby Road",
+      "address2": "Winterton",
+      "street": "38 Roxby Road, Winterton",
+      "company": "Tom Blanchard Co",
+      "city": "Scunthorpe",
+      "province": "North Lincolnshire",
+      "province_code": "NL",
+      "zip": "12345",
+      "country": "United Kingdom",
+      "country_code": "UK",
+      "phone": "1234567890",
+      "id": 1
+    },
+    "email": "yo@tomblanchard.co.uk",
+    "first_name": "Tom",
+    "has_account": false,
+    "id": 1,
+    "last_name": "Blanchard",
+    "last_order": null,
+    "name": "Tom Blanchard",
+    "orders": [],
+    "orders_count": 0,
+    "tags": [],
+    "total_spent": 0
+  },
+  "enabled": true,
+  "expired": false,
+  "expires_on": "2020-11-30",
+  "initial_value": 100,
+  "properties": [],
+  "url": "gift_card.html",
+  "qr_identifier": "12345"
+}

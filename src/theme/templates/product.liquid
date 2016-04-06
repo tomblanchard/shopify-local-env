@@ -1,0 +1,57 @@
+{% include 'breadcrumb' %}
+
+<div class="grid">
+  <div class="grid-item large--one-half">
+    <div class="text-center margin-bottom--up-1">
+      <a class="image-container" href="{{ product.featured_image.src | product_img_url: 'original' }}">
+        <img id="js-product-image" class="box-center" data-src="{{ product.featured_image.src | product_img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}" />
+      </a>
+    </div>
+
+    {% if product.images.size > 1 %}
+      <ul class="grid--uniform">
+        {% for image in product.images %}
+          <li class="grid-item one-quarter">
+            <a class="product-image-thumbnail js-product-image-thumbnail" data-image-id="{{ image.id }}" href="{{ image.src | product_img_url: 'grande' }}">
+              <img data-src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}" />
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+
+  <div class="grid-item large--one-half">
+    <h1 class="font-size--up-2">
+      {{ product.title }}
+    </h1>
+
+    <form action="/cart/add" method="post" enctype="multipart/form-data">
+
+      {% include 'product-price' %}
+
+      <select name="id" id="product-variants" style="display: none;">
+        {% for variant in product.variants %}
+          {% if variant.available %}
+            <option value="{{variant.id}}">
+              {{ variant.title }} - {{ variant.price | money_with_currency }}
+            </option>
+          {% else %}
+            <option disabled="disabled">
+              {{ variant.title }} - Sold out
+            </option>
+          {% endif %}
+        {% endfor %}
+      </select>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" value="1" min="1" />
+
+      <input type="submit" id="js-add-to-cart" name="add" value="{{ settings.add_to_cart_text }}" />
+    </form>
+
+    <div class="rte">
+      {{ product.description }}
+    </div>
+  </div>
+</div>

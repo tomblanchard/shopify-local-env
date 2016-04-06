@@ -1,0 +1,35 @@
+<footer class="text-center" role="contentinfo">
+  <div class="container">
+    <div class="grid">
+      {% for footer_link in linklists.footer.links %}
+        <div class="grid-item">
+          {% assign footer_links_handle = "Footer: " | append: footer_link.title | handle %}
+          {% assign footer_links_linklist = linklists[footer_links_handle] %}
+
+          {% if footer_links_linklist != empty %}
+            <h3>{{ footer_link.title }}</h3>
+            <ul>
+              {% for link in linklists[footer_links_handle].links %}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="grid-item">
+        <ul class="list-inline--0 margin-bottom--up-1">
+          {% for link in linklists["social-media"].links %}
+            <li>
+              <a href="{{ link.url }}"><i class="fa fa-{{ link.handle }}-square"></i></a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <p>{{ shop.name }} / Copyright {{ "now" | date: "%Y" }}</p>
+      </div>
+    </div>
+  </div>
+</footer>

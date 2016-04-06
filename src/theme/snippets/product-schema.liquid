@@ -1,0 +1,17 @@
+<div itemscope itemtype="http://schema.org/Organization">
+  <meta itemprop="url" content="{{ shop.url }}" />
+  <meta itemprop="logo" content="{{ 'logo.png' | asset_url }}" />
+</div>
+
+<div itemscope itemtype="http://schema.org/Product">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
+  <meta itemprop="name" content="{{ product.title }}" />
+  <meta itemprop="description" content="{{ product.description | escape }}" />
+
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+    <meta itemprop="price" content="{{ product.price | money }}" />
+    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}" />
+  </div>
+</div>

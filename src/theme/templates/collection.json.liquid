@@ -1,0 +1,16 @@
+{% layout none %}
+
+{% paginate collection.products by 1000 %}
+
+[
+  {% for product in collection.products %}
+    {
+      "handle": "{{ product.handle | escape }}",
+      "title": "{{ product.title | escape }}",
+      "product_type": "{{ product.type | escape }}",
+      "vendor": "{{ product.vendor | escape }}"
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
+
+{% endpaginate %}

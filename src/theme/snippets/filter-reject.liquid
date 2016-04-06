@@ -1,0 +1,19 @@
+{% comment %}
+  DESCRIPTION
+
+    Remove an item from an array
+
+  USAGE
+
+    {% assign letters = "a, b, c, d" | split: ", " %}
+
+    {% include "filter-reject" input: letters, reject: "c" %}
+    {% assign letters = output %}
+
+    {{ letters | join: ", " }} => "a, b, d"
+
+{% endcomment %}
+
+{% assign rejected = "  " | append: reject %}
+
+{% assign output = input | join: "  " | prepend: "  " | remove: rejected | remove_first: "  " | split: "  " %}

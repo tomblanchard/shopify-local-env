@@ -1,0 +1,35 @@
+<h1 class="font-size--up-3">{{ page.title }}</h1>
+
+<div class="grid">
+  <div class="grid-item large--one-half">
+    <div class="rte">
+      {{ page.content }}
+    </div>
+  </div>
+  <div class="grid-item large--one-half">
+    {% form 'contact' %}
+      {% if form.posted_successfully? %}
+        <p class="note form-success">
+          Thanks for contacting us! We'll get back to you as soon as possible.
+        </p>
+      {% endif %}
+
+      {{ form.errors | default_errors }}
+
+      <label class="margin-bottom--down-3">Name</label>
+      <input class="one-whole" type="text" name="contact[name]" placeholder="Name" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" />
+
+      <label class="margin-bottom--down-3">Email</label>
+      <input class="one-whole" type="email" name="contact[email]" placeholder="Email" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" />
+
+      <label class="margin-bottom--down-3">Phone Number</label>
+      <input class="one-whole" type="tel" name="contact[phone]" placeholder="Phone Number" pattern="[0-9]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" />
+
+      <label class="margin-bottom--down-3">Message</label>
+      <textarea class="one-whole" rows="10" name="contact[body]" placeholder="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+      <input type="submit" value="Send Message" />
+
+    {% endform %}
+  </div>
+</div>

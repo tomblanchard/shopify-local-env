@@ -1,0 +1,18 @@
+{% unless template contains "product" %}
+  {% assign product = product-price %}
+{% endunless %}
+
+<p>
+  {% assign on_sale = false %}
+  {% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+  {% endif %}
+
+  <span id="js-product-price" {% if on_sale %}class="text-line-through"{% endif %}>
+    {{ product.price | money }}
+  </span>
+
+  {% if on_sale %}
+    <span id="js-compare-price">{{ product.compare_at_price_max | money }}</span>
+  {% endif %}
+</p>

@@ -1,0 +1,51 @@
+<div class="js-form-container">
+  {% form "customer_login" %}
+
+    <h1>Login</h1>
+
+    {% if form.errors %}
+      <div class="text-links">
+        {{ form.errors | default_errors }}
+      </div>
+    {% endif %}
+
+    <label for="customer_email">Email</label>
+    <input type="email" value="" name="customer[email]" id="customer_email" placeholder="Email" autocorrect="off" autocapitalize="off" autofocus required />
+
+    <label for="customer_password">Password</label>
+    <input type="password" value="" name="customer[password]" id="customer_password" placeholder="Password" required />
+
+    <button type="submit">Login</button>
+
+    <p class="text-links">
+      <a href="#" class="js-toggle-forms">Forgot your password?</a><br />
+      <a href="/account/register">Create an account</a>
+    </p>
+  {% endform %}
+</div>
+
+<div class="js-form-container hide">
+  {% form "recover_customer_password" %}
+
+    <h1>Reset password</h1>
+
+    {% unless form.errors %}
+      <p>We'll send you an email to reset your password.</p>
+    {% endunless %}
+
+    {% if form.errors %}
+      <div class="text-links">
+        {{ form.errors | default_errors }}
+      </div>
+    {% endif %}
+
+    <label for="recover-email">Email</label>
+    <input type="email" value="" name="email" id="recover-email" placeholder="Email" autocorrect="off" autocapitalize="off" required />
+
+    <button type="submit">Send</button>
+
+    <p class="text-links">
+      <a href="#" class="one-whole text-center js-toggle-forms">Back to login</a>
+    </p>
+  {% endform %}
+</div>

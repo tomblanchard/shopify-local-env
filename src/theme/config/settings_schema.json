@@ -1,0 +1,345 @@
+[
+  {
+    "name": "Support",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "If you have any questions or concerns, please contact us at [support@fuelmade.com](mailto:support@fuelmade.com)"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary color",
+        "default": "#0000ff"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary color",
+        "default": "#dcdcdc"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent color",
+        "default": "#dcdcdc"
+      },
+      {
+        "type": "color",
+        "id": "color_default",
+        "label": "Body text",
+        "default": "#ababab"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Custom Logo",
+        "max-width": 450,
+        "max-height": 200,
+        "info": "Maximum logo dimensions are 450px wide by 200px high. The uploaded file will be resized to fit within those constraints."
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Max Logo Width",
+        "default": "450px",
+        "info": "Defines the width in pixels on the html img tag."
+      }
+    ]
+  },
+  {
+    "name": "Collections",
+    "settings": [
+      {
+        "type": "select",
+        "id": "products_per_page",
+        "label": "Products per page",
+        "options": [
+          {
+            "value": "12",
+            "label": "12 products"
+          },
+          {
+            "value": "24",
+            "label": "24 products"
+          },
+          {
+            "value": "36",
+            "label": "36 products"
+          },
+          {
+            "value": "48",
+            "label": "48 products"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Collection Sorting",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_1",
+        "label": "Manual",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_1_title",
+        "default": "Featured"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_2",
+        "label": "Best Selling",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_2_title",
+        "default": "Top Selling"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_3",
+        "label": "Alphabetically, A-Z",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_3_title",
+        "default": "Alphabetically, A-Z"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_4",
+        "label": "Alphabetically, Z-A",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_4_title",
+        "default": "Alphabetically, Z-A"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_5",
+        "label": "Price, low to high",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_5_title",
+        "default": "Price, low to high"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_6",
+        "label": "Price, high to low",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_6_title",
+        "default": "Price, high to low"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_7",
+        "label": "Date, new to old",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_7_title",
+        "default": "Date, new to old"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sort_option_8",
+        "label": "Date, old to new",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "sort_option_8_title",
+        "default": "Date, old to new"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "text",
+        "id": "add_to_cart_text",
+        "label": "Add to cart action text",
+        "default": "Add to Cart"
+      },
+      {
+        "type": "text",
+        "id": "sold_out_text",
+        "label": "Sold out text",
+        "default": "Sold Out"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "cart_title",
+        "default": "Shopping Cart"
+      },
+      {
+        "type": "textarea",
+        "label": "Notice",
+        "id": "cart_notice"
+      },
+      {
+        "type": "header",
+        "content": "Empty"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "cart_empty_title",
+        "default": "Shopping Cart"
+      },
+      {
+        "type": "textarea",
+        "label": "Description",
+        "id": "cart_empty_description",
+        "default": "Your cart is empty."
+      },
+      {
+        "type": "text",
+        "label": "Call to action",
+        "id": "cart_empty_call_to_action",
+        "default": "Continue shopping"
+      },
+      {
+        "type": "text",
+        "label": "Link",
+        "id": "cart_empty_link",
+        "default": "/collections/all"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "text",
+        "id": "search_form_placeholder",
+        "label": "Form Placeholder Text",
+        "default": "Search our store"
+      },
+      {
+        "type": "textarea",
+        "id": "search_title_no_search",
+        "label": "Title for No Search",
+        "default": "Search for products on our site"
+      },
+      {
+        "type": "textarea",
+        "id": "search_title_results",
+        "label": "Title for Results",
+        "default": "Search results for \"[KEYWORDS]\""
+      },
+      {
+        "type": "textarea",
+        "id": "search_title_no_results",
+        "label": "Title for No Results",
+        "default": "Your search for \"[KEYWORDS]\" did not yield any results."
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "id": "newsletter_form_action",
+        "label": "Form Action URL"
+      }
+    ]
+  },
+  {
+    "name": "Instagram Feed",
+    "settings": [
+      {
+        "type": "text",
+        "id": "instagram_title",
+        "label": "Title",
+        "default": "Tag us on instagram"
+      },
+      {
+        "type": "text",
+        "id": "instagram_hashtag",
+        "label": "Hashtag",
+        "default": "#shopify"
+      },
+      {
+        "type": "textarea",
+        "id": "instagram_description",
+        "label": "Description"
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "paragraph",
+        "content": "Learn more about connecting your shop to Instagram [here](https://www.instagram.com/developer/)"
+      },
+      {
+        "type": "text",
+        "id": "instagram_client_id",
+        "label": "Client ID"
+      },
+      {
+        "type": "text",
+        "id": "instagram_user_id",
+        "label": "User ID"
+      },
+      {
+        "type": "text",
+        "id": "instagram_access_token",
+        "label": "Access token"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Meta Tags"
+      },
+      {
+        "type": "paragraph",
+        "content": "Social meta tags include [Facebook](https: \/\/developers.facebook.com\/docs\/opengraph\/using-objects\/) and [Pinterest](https:\/\/developers.pinterest.com\/rich_pins\/) Open Graph Tags and [Twitter Cards](https:\/\/dev.twitter.com\/docs\/cards\/types\/product-card). These are enabled by default to make the store more accessible on different platforms, and more readable for search engines."
+      },
+      {
+        "type": "text",
+        "id": "twitter_handle",
+        "label": "Twitter handle",
+        "info": "E.g. @Shopify. Required for Twitter Cards."
+      }
+    ]
+  }
+]

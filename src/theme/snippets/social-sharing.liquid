@@ -1,0 +1,19 @@
+{% comment %}
+
+  Twitter button:
+    https://dev.twitter.com/web/tweet-button
+
+  Facebook button:
+    https://developers.facebook.com/docs/plugins/share-button
+
+
+  You can use the stock icons provided by the JavaScript snippets, or extract the URL
+  and use those to link custom icons. Most parameters can be passed in the URL.
+
+  {% assign = full_product_url = "http://" | append: shop.domain | append: product.url %}
+  {% assign = full_article_url = "http://" | append: shop.domain | append: article.url %}
+
+  {% assign facebook_share_url = "https://www.facebook.com/sharer/sharer.php?display=popup&u=" | append: full_product_url %}
+  {% assign twitter_share_url = "https://twitter.com/intent/tweet?text=[TEXT]&url=[URL]&via=smsaudio" | replace: "[TEXT]", tweet_text | replace: "[URL]", full_product_url %}
+
+{% endcomment %}

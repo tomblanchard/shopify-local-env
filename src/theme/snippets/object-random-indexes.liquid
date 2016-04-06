@@ -1,0 +1,28 @@
+{% assign product_words = product.title | append: " " | append: product.description | strip_html | split: " " %}
+
+{% assign random_chars = "" %}
+{% for word in product_words %}
+  {% assign hash = word | md5 | split: "" %}
+  {% assign hash_first_chars = "" %}
+  {% for char in hash limit: 3 %}
+    {% assign hash_first_chars = hash_first_chars | append: char %}
+  {% endfor %}
+  {% assign random_chars = random_chars | append: "  " | append: hash_first_chars %}
+{% endfor %}
+{% assign random_chars = random_chars | strip | split: "  " %}
+
+{% assign indexes = "107, 209, 127, 231, 78, 29, 105, 90, 143, 100, 188, 84, 223, 161, 47, 55, 24, 193, 108, 214, 118, 224, 115, 60, 4, 54, 6, 128, 169, 190, 117, 152, 120, 43, 102, 46, 1, 168, 44, 150, 244, 51, 37, 14, 109, 11, 199, 200, 138, 63, 27, 196, 101, 15, 42, 218, 39, 219, 228, 69, 137, 71, 56, 58, 186, 205, 239, 62, 111, 36, 195, 126, 183, 48, 216, 40, 75, 2, 172, 185, 159, 74, 121, 204, 203, 249, 139, 146, 20, 31, 241, 162, 97, 65, 88, 247, 221, 73, 156, 217, 134, 41, 147, 207, 153, 122, 26, 210, 136, 93, 67, 30, 3, 192, 248, 113, 86, 135, 129, 213, 201, 198, 45, 149, 165, 61, 8, 79, 125, 236, 87, 38, 144, 82, 145, 229, 131, 21, 94, 180, 119, 96, 202, 163, 19, 191, 212, 235, 34, 83, 157, 179, 89, 124, 22, 240, 81, 142, 170, 173, 208, 17, 178, 177, 245, 140, 225, 16, 7, 32, 49, 114, 59, 226, 243, 52, 12, 222, 194, 25, 76, 13, 167, 68, 220, 72, 189, 237, 206, 151, 132, 5, 50, 28, 174, 230, 211, 181, 66, 64, 184, 116, 110, 53, 99, 77, 80, 133, 171, 215, 164, 141, 98, 227, 187, 70, 233, 148, 112, 182, 35, 155, 197, 246, 91, 103, 0, 106, 234, 95, 238, 10, 166, 175, 18, 104, 242, 160, 85, 130, 23, 154, 123, 33, 9, 176, 158, 57, 92, 232" | split: ", " %}
+
+{% assign random_indexes = "" %}
+
+{% for chars in random_chars %}
+  {% assign random_indexes_array = random_indexes | strip | split: "  " %}
+  {% for index in indexes %}
+    {% if chars contains index %}
+      {% unless random_indexes_array contains index %}
+        {% assign random_indexes = random_indexes | append: "  " | append: index %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+{% assign random_indexes = random_indexes | strip | split: "  " %}

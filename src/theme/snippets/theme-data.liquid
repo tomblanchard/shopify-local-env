@@ -1,0 +1,19 @@
+{% assign current_tag_handles = "" %}
+{% for tag in current_tags %}
+  {% assign tag_handle = tag | handle %}
+  {% assign current_tag_handles = current_tag_handles | append: "  " | append: tag_handle %}
+{% endfor %}
+{% assign current_tag_handles = current_tag_handles | strip | split: "  " %}
+
+{% capture theme_data_json %}{
+  "current_tag_handles": [{% for tag in current_tag_handles %}"{{ tag }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+  "template": "{{ template }}"{% if product %},
+  "product": {
+    "images": [{% for image in product.images %}
+      {
+        "src": "{{ image.src | product_img_url: 'grande' }}",
+        "alt": "{{ image.alt | escape }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}]
+  }{% endif %}
+}{% endcapture %}

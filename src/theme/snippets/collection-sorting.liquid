@@ -1,0 +1,34 @@
+{% assign sort_titles = "" %}
+{% for num in (1..8) %}
+  {% assign option_title_handle = "sort_option_" | append: num | append: "_title" %}
+  {% assign option_title = settings[option_title_handle] %}
+  {% assign sort_titles = sort_titles | append: "  " | append: option_title %}
+{% endfor %}
+{% assign sort_titles = sort_titles | strip | split: "  " %}
+
+{% assign sort_values = "manual|best-selling|title-ascending|title-descending|price-ascending|price-descending|created-descending|created-ascending" | split: "|" %}
+
+{% assign collection_sort_by = collection.sort_by | default: collection.default_sort_by %}
+
+<div class="inline-block position-relative">
+  <select class="one-whole js-sort-by">
+    <option hidden="hidden" {% unless selected %}selected="selected"{% endunless %}>SORT BY</option>
+    {% for sort_title in sort_titles %}
+      {% assign show_option_handle = "show_sort_option_" | append: forloop.index %}
+      {% assign show_option = settings[show_option_handle] %}
+      {% assign sort_value = sort_values[forloop.index0] %}
+
+      {% assign selected = "" %}
+      {% if sort_value == collection_sort_by %}
+        {% assign selected = 'selected="selected"' %}
+      {% endif %}
+
+      {% if show_option %}
+        <option value="{{ sort_value }}" {{ selected }} data-sort="{{ collection.sort_by }}">
+          {{ sort_title }}
+        </option>
+      {% endif %}
+    {% endfor %}
+  </select>
+  <i class="fa fa-caret-down position-absolute position-center-vertical position-right--down-1"></i>
+</div>

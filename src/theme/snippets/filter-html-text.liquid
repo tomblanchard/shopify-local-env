@@ -1,0 +1,11 @@
+{% assign each_line = filter-html-text | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = "" %}
+
+{% for html in each_line %}
+  {% unless html contains "<img" %}
+    {% capture html_with_clean_line_break %}{{ html }}
+{% endcapture %}
+    {% assign output = output | append: html %}
+  {% endunless %}
+{% endfor %}

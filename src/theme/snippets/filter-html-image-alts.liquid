@@ -1,0 +1,16 @@
+{% assign html_image_parts = filter-html-image-alts | default: html | split: "<img" %}
+
+{% assign output = "" %}
+
+{% for part in html_image_parts %}
+  {% unless forloop.first %}
+    {% if part contains 'alt="' %}
+      {% assign alt = part | split: 'alt="' | last | split: '"' | first %}
+    {% else %}
+      {% assign alt = "null" %}
+    {% endif %}
+    {% assign output = output | append: "  " | append: alt %}
+  {% endunless %}
+{% endfor %}
+
+{% assign output = output | strip | split: "  " %}

@@ -1,0 +1,51 @@
+{% capture delimiter %}
+  <span>&nbsp;&raquo;&nbsp;</span>
+{% endcapture %}
+
+<div class="margin-bottom--up-2 text-caps">
+  <a class="hover-text-primary" href="/">Home</a>
+
+  {% if template contains "product" %}
+
+    {% if collection %}
+      {{ delimiter }}
+      {% if collection.handle %}
+        <a href="{{ collection.url }}" class="hover-text-primary">
+          {{ collection.title }}
+        </a>
+      {% endif %}
+    {% endif %}
+
+  {% elsif template contains "collection" %}
+
+    {% if current_tags %}
+      {{ delimiter }}
+      <a href="{{ collection.url }}" class="hover-text-primary">
+        {{ collection.title }}
+      </a>
+      {{ delimiter }}
+      <span>{{ current_tags | join: " + " }}</span>
+    {% else %}
+      {{ delimiter }}
+      <span>{{ collection.title }}</span>
+    {% endif %}
+
+  {% elsif template == "article" %}
+
+    {{ delimiter }}
+    <a href="{{ blog.url }}" class="hover-text-primary">
+      {{ blog.title }}
+    </a>
+
+  {% elsif template contains "page" %}
+
+    {{ delimiter }}
+    <span>{{ page.title }}</span>
+
+  {% else %}
+
+    {{ delimiter }}
+    <span>{{ page_title }}</span>
+
+  {% endif %}
+</div>

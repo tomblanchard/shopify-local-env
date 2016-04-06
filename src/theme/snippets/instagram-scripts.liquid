@@ -1,0 +1,32 @@
+<script>
+  (function ($) {
+    var container = $("#instagram-feed");
+    var settings = container.data("instagram");
+    var photo_template = $("#instagram-photo").html();
+
+    if ( container.length ) {
+      $.ajax({
+        url: settings.url,
+        dataType: 'jsonp',
+        success: function (feed) {
+          var photos = "";
+
+          $.each(feed.data, function (index, item) {
+            var photo_url = item.link;
+            var photo_src = item.images.standard_resolution.url;
+
+            var photo = photo_template
+              .replace({% raw %}"{{ photo_url }}"{% endraw %}, photo_url)
+              .replace({% raw %}"{{ photo_src }}"{% endraw %}, photo_src);
+
+            photos += photo;
+
+            return index < (settings.limit - 1);
+          });
+
+          container.append(photos);
+        }
+      });
+    }
+  })(jQuery);
+</script>

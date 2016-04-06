@@ -1,0 +1,11 @@
+{% assign shop_phone = false %}
+
+{% if shop.phone != blank %}
+  {% assign phone_numbers = shop.phone | split: "" %}
+  {% assign phone_format = "[1][2][3]-[4][5][6]-[7][8][9][10]" %}
+  {% for number in phone_numbers %}
+    {% assign placeholder = "[" | append: forloop.index | append: "]" %}
+    {% assign phone_format = phone_format | replace: placeholder, number %}
+  {% endfor %}
+  {% assign shop_phone = phone_format %}
+{% endif %}

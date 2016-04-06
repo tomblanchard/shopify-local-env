@@ -1,0 +1,17 @@
+{% assign each_line = filter-html-description | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = "" %}
+
+{% for html in each_line %}
+  {% if html contains "</p>" %}
+
+    {% comment %}
+      Skip images wrapped with paragraph tags: <p><img /></p>
+    {% endcomment %}
+    {% unless html contains "<img" %}
+      {% capture html_with_clean_line_break %}{{ html }}
+  {% endcapture %}
+      {% assign output = output | append: html_with_clean_line_break %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}

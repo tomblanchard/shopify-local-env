@@ -1,0 +1,15 @@
+{% capture canonical %}
+  {% if template contains "collection" %}
+    {{ collection.url }}
+  {% elsif template contains "blog" %}
+    {{ blog.url }}
+  {% elsif template contains "blog" and current_tags %}
+    {{ blog.url }}/tagged/{{ current_tags | join: "+" }}
+  {% elsif template contains "search" %}
+    /search
+  {% else %}
+    {{ canonical_url }}
+  {% endif %}
+{% endcapture %}
+
+{% assign canonical = canonical | strip %}

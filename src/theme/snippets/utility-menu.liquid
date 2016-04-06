@@ -1,0 +1,17 @@
+<ul class="list-inline--0">
+  {% if shop.customer_accounts_enabled %}
+    <li>
+      {% if customer %}
+        <a href="/account">My Account</a>
+      {% else %}
+        {{ 'My Account' | customer_login_link }}
+      {% endif %}
+    </li>
+  {% endif %}
+
+  <li>
+    <a href="/cart">
+      Cart (<span>{{ cart.item_count }}</span> {{ cart.item_count | pluralize: 'item', 'items' }} <span>{{ cart.total_price | money }}</span>)
+    </a>
+  </li>
+</ul>

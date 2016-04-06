@@ -1,0 +1,13 @@
+{% capture tags %}
+  {% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}
+{% endcapture %}
+
+{% capture pagination %}
+  {% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}
+{% endcapture %}
+
+{% capture shop_name %}
+  {% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+{% endcapture %}
+
+<title>{{ page_title }} {{ tags | strip }} {{ pagination | strip }} {{ shop_name | strip }}</title>

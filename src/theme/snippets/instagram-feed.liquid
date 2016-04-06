@@ -1,0 +1,34 @@
+{% assign user_id = settings.instagram_user_id | default: false %}
+
+{% assign access_token = settings.instagram_access_token | default: false %}
+
+{% assign instagram_url = "https://api.instagram.com/v1/users/USER_ID/media/recent?access_token=ACCESS_TOKEN" | replace: "USER_ID", user_id | replace: "ACCESS_TOKEN", access_token %}
+
+{% assign title = settings.instagram_title %}
+
+{% assign hashtag = settings.instagram_hashtag %}
+
+{% assign description = settings.instagram_description | default: false %}
+
+{% if user_id and access_token %}
+  <section>
+    <h1>{{ title }}</h1>
+    <h2>{{ hashtag }}</h2>
+
+    {% if description %}
+      <p>{{ description }}</p>
+    {% endif %}
+
+    <div id="instagram-feed" class="grid--uniform" data-instagram='{ "url": "{{ instagram_url }}", "limit": 10 }'>
+      {% raw %}
+        <script id="instagram-photo" type="text/template">
+          <div class="grid-item one-half large--one-quarter">
+            <a class="block image-container" href="{{ photo_url }}">
+              <img src="{{ photo_src }}" />
+            </a>
+          </div>
+        </script>
+      {% endraw %}
+    </div>
+  </section>
+{% endif %}

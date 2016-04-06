@@ -1,0 +1,124 @@
+{% comment %}
+  To take advantage of a callback on the select dropdown, add option_selection.js
+  and customize the JS below as you need. This is only needed on pages where
+  product variants are accessible, so doesn't need to live in theme.liquid.
+
+  Currently, the code below does:
+    - Hides your <select> tag from above
+    - Breaks out the product variants into separate product options, if more than one exists
+    - Generates a <select> tag for each product option
+
+  Callback notes:
+    - Keep the callback available to the global scope (window.selectCallback) so that advanced
+      addons can override it.
+      * E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
+{% endcomment %}
+
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+<script>
+
+  var product_image = $("#js-product-image");
+  var product_image_thumbnails = $(".js-product-image-thumbnail");
+  var add_to_cart = $("#js-add-to-cart");
+  var product_price = $("#js-product-price");
+  var product_compare_price = $("#js-compare-price");
+
+  var add_to_cart_text = "{{ settings.add_to_cart_text }}";
+  var sold_out_text = "{{ settings.sold_out_text }}";
+  
+  window.product_variant_select_callback = function (variant, selector) {
+
+    if ( variant ) {
+      if ( variant.available ) {
+        add_to_cart
+          .val(add_to_cart_text)
+          .removeClass("disabled")
+          .prop("disabled", false);
+      } else {
+        add_to_cart
+          .val(sold_out_text)
+          .addClass("disabled")
+          .prop("disabled", true);
+      }
+
+      if ( variant.featured_image ) {
+        var product_image_size = Shopify.Image.imageSize(product_image[0].src);
+        product_image[0].src = Shopify.Image.getSizedImageUrl(variant.featured_image.src, product_image_size);
+
+        product_image_thumbnails
+          .removeClass("is-active")
+          .filter("[data-image-id=" + variant.featured_image.id + "]")
+            .addClass("is-active");
+      }
+
+      product_price.html(
+        Shopify.formatMoney(variant.price, "{{ shop.money_format }}")
+      );
+
+      if ( variant.compare_at_price > variant.price ) {
+        product_compare_price
+          .html(
+            Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")
+          )
+          .show();
+      } else {
+        product_compare_price.hide();
+      }
+
+    } else {
+      // The variant doesn't exist, disable submit button.
+      // This may be an error or notice that a specific variant is not available.
+      // To only show available variants, implement linked product options:
+      //   - http://docs.shopify.com/manual/configuration/store-customization/advanced-navigation/linked-product-options
+      add_to_cart
+        .val("Unavailable")
+        .addClass("disabled")
+        .prop("disabled", true);
+    }
+  };
+
+  $(function () {
+
+    product_image_thumbnails
+      .click(function (e) {
+        e.preventDefault();
+        product_image[0].src = this.href ;
+        product_image_thumbnails
+          .removeClass("is-active")
+          .filter(this)
+            .addClass("is-active");
+      });
+
+    new Shopify.OptionSelectors("product-variants", {
+      product: {{ product | json }},
+      onVariantSelected: product_variant_select_callback
+    });
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != "Title" %}
+      $(".selector-wrapper:eq(0)")
+        .prepend("<label>{{ product.options.first }}</label>");
+    {% endif %}
+
+    // Hide selectors if we only have 1 variant and its title contains 'Default'.
+    {% if product.variants.size == 1 and product.variants.first.title contains "Default" %}
+      $(".selector-wrapper").hide();
+    {% endif %}
+
+    // Auto-select first available variant on page load. Otherwise the product looks sold out.
+    {% assign found_one_in_stock = false %}
+    {% for variant in product.variants %}
+      {% if variant.available and found_one_in_stock == false %}
+        {% assign found_one_in_stock = true %}
+        {% for option in product.options %}
+          $(".single-option-selector:eq({{ forloop.index0 }})")
+            .val(
+              {{ variant.options[forloop.index0] | json }}
+            )
+            .trigger("change");
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  });
+</script>

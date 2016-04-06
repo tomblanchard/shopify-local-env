@@ -1,0 +1,20 @@
+{% assign each_line = filter-html-table | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = false %}
+
+{% assign table_start_index = false %}
+{% assign table_length = false %}
+
+{% for html in each_line %}
+  {% if html contains "<table" %}
+    {% assign table_start_index = forloop.index0 %}
+  {% endif %}
+  {% if html contains "</table>" %}
+    {% assign table_length = forloop.index | minus: table_start_index %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if table_start_index and table_length %}
+  {% assign output = each_line | slice: table_start_index, table_length | join: "" %}
+{% endif %}

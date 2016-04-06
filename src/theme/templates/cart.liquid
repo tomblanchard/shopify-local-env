@@ -1,0 +1,48 @@
+{% assign cart_empty = false %}
+{% if cart.item_count == 0 %}
+  {% assign cart_empty = true %}
+{% endif %}
+
+{% assign title = settings.cart_title | default: page_title %}
+
+{% assign notice = settings.cart_notice | default: false %}
+
+<div class="padding-top-bottom--up-6">
+  <h1 class="font-size--up-3 text-center">{{ title }}</h1>
+
+  {% if cart_empty %}
+    <div class="text-center">
+      <p>{{ settings.cart_empty_description }}</p>
+      <a href="{{ settings.cart_empty_link }}" class="block">
+        {{ settings.cart_empty_call_to_action }}
+      </a>
+    </div>
+  {% else %}
+    <form action="/cart" method="post" novalidate>
+
+      {% for item in cart.items %}
+        {% include "cart-item" %}
+      {% endfor %}
+
+      <div class="grid">
+        <div class="grid-item large--one-half">
+          <label>Special instructions</label>
+          <textarea class="one-whole" name="note">{{ cart.note }}</textarea>
+        </div>
+
+        <div class="grid-item text-right large--one-half">
+          <p>Subtotal <span>{{ cart.total_price | money }}</span></p>
+
+          <input type="submit" name="update" value="Update cart" />
+          <input type="submit" name="checkout" value="Check out" />
+        </div>
+
+        {% if notice %}
+          <p class="float-right">
+            {{ notice }}
+          </p>
+        {% endif %}
+      </div>
+    </form>
+  {% endif %}
+</div>

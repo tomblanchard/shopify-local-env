@@ -1,0 +1,45 @@
+{% assign each_line = filter-html-prose | default: html | newline_to_br | split: "<br />" %}
+
+{% assign output = false %}
+
+{% assign headings = "<h1, <h2, <h3, <h4, <h6" | split: ", " %}
+{% assign paragraph = "<p" %}
+{% assign blockquote = "<blockquote" %}
+
+{% assign not_prose_elements = "<ul, <ol, <table, <img" | split: ", " %}
+
+{% assign prose_start_index = false %}
+{% assign prose_length = false %}
+
+{% for html in each_line %}
+  {% assign heading = false %}
+
+  {% for heading in headings %}
+    {% if html contains heading %}
+      {% assign heading = true %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign not_prose = false %}
+
+  {% for element in not_prose_elements %}
+    {% if html contains element %}
+      {% assign not_prose = true %}
+    {% endif %}
+  {% endfor %}
+
+  {% if heading or html contains paragraph or html contains blockquote %}
+    {% unless not_prose or prose_start_index %}
+      {% assign prose_start_index = forloop.index0 %}
+    {% endunless %}
+  {% endif %}
+
+  {% if not_prose %}
+    {% assign prose_length = forloop.index0 | minus: prose_start_index %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if prose_start_index and prose_length %}
+  {% assign output = each_line | slice: prose_start_index, prose_length | join: "" %}
+{% endif %}
