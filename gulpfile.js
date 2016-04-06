@@ -121,6 +121,12 @@ function build_liquid (file) {
   })();
 
   (function write_compiled_data () {
+    var dir = 'site';
+
+    if ( !fs.existsSync(dir) ) {
+      fs.mkdirSync(dir);
+    }
+
     var dir = 'site/temp';
 
     if ( !fs.existsSync(dir) ) {
