@@ -17,11 +17,11 @@ module.exports = {
       {
         "active": false,
         "object": {
-          "title": "About",
-          "content": "Welcome to the store!"
+          "title": "Page",
+          "content": "This is the page content."
         },
-        "title": "About",
-        "handle": "about",
+        "title": "Page",
+        "handle": "page",
         "type": "page_link",
         "url": "page.html"
       },
@@ -74,8 +74,8 @@ module.exports = {
       {
         "active": false,
         "object": {
-          "title": "About",
-          "content": "Welcome to the store!"
+         "title": "Page",
+          "content": "This is the page content."
         },
         "title": "Contact",
         "handle": "contact",
